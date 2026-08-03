@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Personal Portfolio",
-  description: "A modern personal portfolio website built with Next.js and Tailwind CSS.",
+  metadataBase: new URL("https://www.uddish.online"),
+  title: "Uddish | Personal Portfolio",
+  description: "Personal portfolio website showcasing projects, skills, and contact information for Uddish.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
