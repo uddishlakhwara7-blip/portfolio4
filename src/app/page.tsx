@@ -40,7 +40,7 @@ export default function Home() {
               Contact
             </a>
             <a href="/seo" className="transition hover:text-white">
-              SEO Pages
+              Extras
             </a>
           </div>
         </nav>
