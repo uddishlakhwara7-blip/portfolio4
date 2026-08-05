@@ -39,6 +39,9 @@ export default function Home() {
             <a href="#contact" className="transition hover:text-white">
               Contact
             </a>
+            <a href="/seo" className="transition hover:text-white">
+              SEO Pages
+            </a>
           </div>
         </nav>
 
