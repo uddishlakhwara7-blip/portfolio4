@@ -27,7 +27,7 @@ export default function Home() {
       <section className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-20 lg:px-8 lg:py-28">
         <nav className="flex items-center justify-between text-sm text-slate-300">
           <a href="#home" className="font-semibold tracking-[0.25em] text-white uppercase">
-            Your Name
+            UDDISH LAKHWARA
           </a>
           <div className="flex gap-5">
             <a href="#about" className="transition hover:text-white">
