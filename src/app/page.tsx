@@ -72,26 +72,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative flex min-h-[320px] items-center justify-center">
-            <div className="absolute inset-0 rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-cyan-400/20 via-slate-800/20 to-violet-500/20 blur-3xl" />
-            <div className="relative h-72 w-72 rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 p-6 shadow-[0_25px_70px_rgba(0,0,0,0.45)]">
-              <div className="absolute inset-4 rounded-[1.5rem] border border-cyan-400/20 bg-gradient-to-br from-cyan-500/25 via-transparent to-violet-500/20" />
-              <div className="relative flex h-full flex-col justify-between rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-cyan-300">3D UI</p>
-                  <h2 className="mt-2 text-2xl font-semibold text-white">Layered experience</h2>
-                </div>
-                <div className="flex items-end justify-between">
-                  <div className="space-y-2">
-                    <div className="h-2.5 w-20 rounded-full bg-cyan-400/80" />
-                    <div className="h-2.5 w-14 rounded-full bg-white/40" />
-                    <div className="h-2.5 w-24 rounded-full bg-violet-400/70" />
-                  </div>
-                  <div className="h-14 w-14 rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-400/80 to-violet-500/80 shadow-lg shadow-cyan-500/20" />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <section id="about" className="grid gap-8 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.35)] lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
