@@ -72,11 +72,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex justify-center md:justify-end">
-            <div className="flex h-56 w-56 items-center justify-center rounded-full border border-cyan-400/40 bg-gradient-to-br from-cyan-500 via-slate-700 to-violet-600 text-5xl font-semibold text-white shadow-xl shadow-cyan-500/20">
-              YN
-            </div>
-          </div>
         </div>
 
         <section id="about" className="grid gap-8 rounded-3xl border border-white/10 bg-slate-900/70 p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
