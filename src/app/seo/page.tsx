@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FaqSection from "@/components/faq-section";
 
 const pages = [
   { slug: "about-uddish", title: "About Uddish" },
@@ -38,6 +39,27 @@ export default function SeoIndexPage() {
             This collection provides 25 long-form landing pages centered on the keyword uddish for search visibility and topical depth.
           </p>
         </header>
+
+        <section className="rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-2xl shadow-black/20">
+          <div className="space-y-4">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">FAQ</p>
+            <h2 className="text-2xl font-semibold text-white">Frequently Asked Questions</h2>
+            <div className="space-y-5 text-base leading-8 text-slate-300">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-6">
+                <h3 className="text-xl font-semibold text-white">What is the extras section for?</h3>
+                <p className="mt-3">The extras section highlights UDDISH-focused SEO landing pages and provides additional context for keyword-driven content strategy.</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-6">
+                <h3 className="text-xl font-semibold text-white">Why include FAQs here?</h3>
+                <p className="mt-3">Including a FAQ in the extras page helps visitors understand how UDDISH is used across the website and improves the page’s informational value.</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-6">
+                <h3 className="text-xl font-semibold text-white">How does UDDISH support content strategy?</h3>
+                <p className="mt-3">UDDISH serves as a unifying theme for strategy, design, and marketing, making it easier to create consistent messaging and SEO relevance.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {pages.map((page) => (

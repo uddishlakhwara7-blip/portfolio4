@@ -34,6 +34,21 @@ export default function SeoContentPage({
   const sections = buildSections(keyword, topic);
   const intro = `This page is built to help ${keyword} attract qualified attention through search intent, useful structure, and long-form relevance. The content below uses ${keyword} repeatedly in a natural way while providing detailed guidance for readers who want practical knowledge, strategic context, and clear next steps. By combining editorial depth with a clear page architecture, ${keyword} can support discovery, trust, and sustained visibility across search engines.`;
   const conclusion = `In practice, ${keyword} performs best when it is treated as a durable framework rather than a single tactic. The ideas shared here show that ${keyword} can shape messaging, support growth, and create a stronger foundation for future campaigns. The more consistently ${keyword} is connected to audience needs, the more useful it becomes as both a content strategy and a brand philosophy.`;
+  const upperKeyword = keyword.toUpperCase();
+  const faqItems = [
+    {
+      question: `What does ${upperKeyword} mean on this page?`,
+      answer: `${upperKeyword} is the keyword focus for this content, representing a holistic framework for digital strategy, design, and marketing. It is used here to reinforce the page's relevance and to help readers understand how the concept can be applied in practice.`,
+    },
+    {
+      question: `How does ${upperKeyword} support SEO and page authority?`,
+      answer: `By including ${upperKeyword} consistently and naturally, this page strengthens its topical alignment and makes the message more coherent for search engines and visitors. The ${upperKeyword} FAQ also helps clarify the core idea for users while signaling relevance for keyword-driven search intent.`,
+    },
+    {
+      question: `Why is ${upperKeyword} important for content strategy?`,
+      answer: `Using ${upperKeyword} as a central concept helps tie content, user experience, and business goals together. It provides a simple way to keep the messaging focused and to show how strategy and execution can work together around a single meaningful theme.`,
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100 sm:px-8 lg:px-12">
@@ -67,6 +82,18 @@ export default function SeoContentPage({
               <p className="text-base leading-8 text-slate-300">{section.body}</p>
             </section>
           ))}
+        </section>
+
+        <section className="rounded-2xl border border-white/10 bg-slate-950/70 p-6">
+          <h2 className="mb-5 text-2xl font-semibold text-white">FAQ</h2>
+          <div className="space-y-5 text-base leading-8 text-slate-300">
+            {faqItems.map((item) => (
+              <div key={item.question} className="rounded-2xl border border-white/10 bg-slate-900/90 p-6">
+                <h3 className="text-xl font-semibold text-white">{item.question}</h3>
+                <p className="mt-3 text-slate-300">{item.answer}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-6">

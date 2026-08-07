@@ -36,6 +36,9 @@ export default function Home() {
             <a href="#projects" className="transition hover:text-cyan-300">
               Projects
             </a>
+            <a href="#faq" className="transition hover:text-cyan-300">
+              FAQ
+            </a>
             <a href="#contact" className="transition hover:text-cyan-300">
               Contact
             </a>
@@ -126,6 +129,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <FaqSection />
 
         <section id="contact" className="rounded-[2rem] border border-cyan-400/30 bg-cyan-500/10 p-8 text-center shadow-[0_20px_60px_rgba(34,211,238,0.12)] lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Let&apos;s collaborate</p>
