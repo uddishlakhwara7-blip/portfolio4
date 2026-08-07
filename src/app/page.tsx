@@ -1,3 +1,5 @@
+import FaqSection from "@/components/faq-section";
+
 const projects = [
   {
     title: "Studio Landing Page",
