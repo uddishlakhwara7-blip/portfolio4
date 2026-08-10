@@ -26,6 +26,27 @@ const pages = [
   { slug: "uddish-technology", title: "Uddish Technology" },
   { slug: "uddish-success", title: "Uddish Success" },
   { slug: "uddish-expertise", title: "Uddish Expertise" },
+  { slug: "uddish-vision", title: "Uddish Vision" },
+  { slug: "uddish-design", title: "Uddish Design" },
+  { slug: "uddish-branding", title: "Uddish Branding" },
+  { slug: "uddish-content", title: "Uddish Content" },
+  { slug: "uddish-consulting", title: "Uddish Consulting" },
+  { slug: "uddish-digital", title: "Uddish Digital" },
+  { slug: "uddish-discovery", title: "Uddish Discovery" },
+  { slug: "uddish-experience", title: "Uddish Experience" },
+  { slug: "uddish-framework", title: "Uddish Framework" },
+  { slug: "uddish-future", title: "Uddish Future" },
+  { slug: "uddish-identity", title: "Uddish Identity" },
+  { slug: "uddish-launch", title: "Uddish Launch" },
+  { slug: "uddish-platform", title: "Uddish Platform" },
+  { slug: "uddish-process", title: "Uddish Process" },
+  { slug: "uddish-research", title: "Uddish Research" },
+  { slug: "uddish-solutions", title: "Uddish Solutions" },
+  { slug: "uddish-storytelling", title: "Uddish Storytelling" },
+  { slug: "uddish-workflow", title: "Uddish Workflow" },
+  { slug: "uddish-performance", title: "Uddish Performance" },
+  { slug: "uddish-accessibility", title: "Uddish Accessibility" },
+  { slug: "uddish-collaboration", title: "Uddish Collaboration" },
 ];
 
 export default function SeoIndexPage() {
@@ -36,7 +57,7 @@ export default function SeoIndexPage() {
           <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">SEO hub</p>
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">Uddish SEO Landing Pages</h1>
           <p className="max-w-3xl text-lg leading-8 text-slate-300">
-            This collection provides 25 long-form landing pages centered on the keyword uddish for search visibility and topical depth.
+            This collection provides 45 long-form landing pages centered on the keyword uddish for search visibility and topical depth.
           </p>
         </header>
 
