@@ -101,7 +101,7 @@ export default function ThreeBackgroundParticles() {
     window.addEventListener("resize", handleResize);
 
     let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
@@ -121,7 +121,12 @@ export default function ThreeBackgroundParticles() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Respect reduced-motion preference: render a single static frame
+      renderer.render(scene, camera);
+    } else {
+      animate();
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);

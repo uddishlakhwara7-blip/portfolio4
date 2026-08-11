@@ -1,11 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import FaqSection from "@/components/faq-section";
-import ThreeHeroCanvas, { ColorPreset, GeometryShape } from "@/components/three-hero-canvas";
 import ThreeControlsHud from "@/components/three-controls-hud";
 import ThreeTiltCard from "@/components/three-tilt-card";
-import ThreeBackgroundParticles from "@/components/three-background-particles";
+import type { ColorPreset, GeometryShape } from "@/components/three-hero-canvas";
+
+// WebGL components are heavy (Three.js) — load them only on the client,
+// in a separate bundle, so they never block first paint or SSR.
+const ThreeHeroCanvas = dynamic(
+  () => import("@/components/three-hero-canvas"),
+  { ssr: false, loading: () => <CanvasLoading /> }
+);
+
+const ThreeBackgroundParticles = dynamic(
+  () => import("@/components/three-background-particles"),
+  { ssr: false }
+);
 
 const projects = [
   {
@@ -40,6 +52,14 @@ const skills = [
   "Interactive Motion",
 ];
 
+function CanvasLoading() {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="size-10 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
+    </div>
+  );
+}
+
 export default function Home() {
   // 3D Canvas Controls State
   const [shape, setShape] = useState<GeometryShape>("crystal");
@@ -66,14 +86,14 @@ export default function Home() {
             <a href="#projects" className="transition hover:text-cyan-300">
               Projects
             </a>
+            <a href="/articles" className="transition hover:text-cyan-300">
+              Articles
+            </a>
             <a href="#faq" className="transition hover:text-cyan-300">
               FAQ
             </a>
             <a href="#contact" className="transition hover:text-cyan-300">
               Contact
-            </a>
-            <a href="/seo" className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1.5 transition hover:bg-cyan-400/20">
-              Extras
             </a>
           </div>
         </nav>
@@ -225,10 +245,10 @@ export default function Home() {
             I’m available for freelance 3D web projects, full-time positions, and creative technical partnerships.
           </p>
           <a
-            href="mailto:hello@yourname.com"
+            href="mailto:hello@uddish.online"
             className="mt-8 inline-block rounded-full bg-cyan-400 px-8 py-3.5 font-bold text-slate-950 shadow-lg shadow-cyan-400/30 transition hover:scale-105 hover:bg-cyan-300"
           >
-            hello@yourname.com
+            hello@uddish.online
           </a>
         </section>
       </section>

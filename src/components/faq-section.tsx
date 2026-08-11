@@ -1,23 +1,23 @@
 const faqItems = [
   {
-    question: "What does UDDISH mean on this website?",
+    question: "What technologies do you work with?",
     answer:
-      "UDDISH is the core keyword and content theme used throughout the site. It represents a unified approach to digital strategy, design, and UX that keeps messaging consistent and meaningful.",
+      "I build with Next.js, React, TypeScript, and Tailwind CSS, and I specialise in real-time 3D graphics using Three.js and WebGL for interactive, high-performance web experiences.",
   },
   {
-    question: "Why is FAQ included on the homepage and extras page?",
+    question: "What kind of projects do you take on?",
     answer:
-      "A shared FAQ section helps visitors understand the site’s UDDISH focus and provides quick answers to common questions, improving the experience and the informational value of both pages.",
+      "I work on interactive landing pages, WebGL product showcases, dashboards with 3D data visualisation, and any project where motion and depth make the experience genuinely better.",
   },
   {
-    question: "How does UDDISH support content strategy?",
+    question: "Are you available for freelance or full-time work?",
     answer:
-      "UDDISH serves as a strategic anchor for SEO and messaging. It makes it easier to build coherent page content by connecting keyword relevance to user needs, value propositions, and long-form storytelling.",
+      "Yes. I'm open to freelance 3D web projects, full-time frontend roles, and creative technical partnerships — feel free to reach out and we can talk about your project.",
   },
   {
-    question: "Can I apply UDDISH principles to my own project?",
+    question: "How can I get in touch?",
     answer:
-      "Yes. UDDISH is presented as a broadly applicable framework for digital projects, helping you align strategy, design, and growth around a single cohesive idea.",
+      "The easiest way is by email at hello@uddish.online — I usually reply within a couple of days.",
   },
 ];
 

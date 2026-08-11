@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ColorPreset, GeometryShape } from "./three-hero-canvas";
+import type { ColorPreset, GeometryShape } from "./three-hero-canvas";
 import { Box, CircleDot, Flame, Layers, Maximize2, RefreshCw, Sparkles, Sun, Zap } from "lucide-react";
 
 interface ThreeControlsHudProps {

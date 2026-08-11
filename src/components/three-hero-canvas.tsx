@@ -319,7 +319,13 @@ export default function ThreeHeroCanvas({
     };
 
     setIsLoaded(true);
-    animate();
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Respect reduced-motion preference: render a single static frame
+      renderer.render(scene, camera);
+    } else {
+      animate();
+    }
 
     return () => {
       container.removeEventListener("mousedown", onMouseDown);
