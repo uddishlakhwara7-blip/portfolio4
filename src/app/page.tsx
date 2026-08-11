@@ -1,33 +1,61 @@
+"use client";
+
+import { useState } from "react";
 import FaqSection from "@/components/faq-section";
+import ThreeHeroCanvas, { ColorPreset, GeometryShape } from "@/components/three-hero-canvas";
+import ThreeControlsHud from "@/components/three-controls-hud";
+import ThreeTiltCard from "@/components/three-tilt-card";
+import ThreeBackgroundParticles from "@/components/three-background-particles";
 
 const projects = [
   {
     title: "Studio Landing Page",
     description:
-      "A polished marketing site crafted with a strong visual hierarchy and fast loading experience.",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion"],
+      "A polished marketing site crafted with a strong visual hierarchy, 3D dynamic lighting, and fast loading experience.",
+    stack: ["Next.js", "Three.js", "Tailwind CSS"],
+    color: "from-cyan-500/20 to-blue-500/10",
   },
   {
     title: "Analytics Dashboard",
     description:
-      "A sleek dashboard experience for tracking KPIs, with responsive charts and clean interactions.",
-    stack: ["React", "TypeScript", "Chart.js"],
+      "A sleek dashboard experience for tracking KPIs, with responsive WebGL charts and real-time interactions.",
+    stack: ["React", "TypeScript", "WebGL"],
+    color: "from-purple-500/20 to-violet-500/10",
   },
   {
     title: "Creative Portfolio",
     description:
-      "A personal showcase designed to highlight work, process, and personality in one place.",
-    stack: ["Next.js", "Sanity", "Vercel"],
+      "A personal showcase designed to highlight work, interactive 3D elements, and visual storytelling in one place.",
+    stack: ["Next.js", "3D Graphics", "Vercel"],
+    color: "from-emerald-500/20 to-teal-500/10",
   },
 ];
 
-const skills = ["UI Development", "Responsive Design", "Performance Optimization", "Design Systems", "Content Strategy"];
+const skills = [
+  "3D WebGL Development",
+  "UI/UX Design",
+  "Responsive Design",
+  "Performance Optimization",
+  "Design Systems",
+  "Interactive Motion",
+];
 
 export default function Home() {
+  // 3D Canvas Controls State
+  const [shape, setShape] = useState<GeometryShape>("crystal");
+  const [preset, setPreset] = useState<ColorPreset>("cyberpunk");
+  const [wireframe, setWireframe] = useState<boolean>(false);
+  const [speed, setSpeed] = useState<number>(1);
+  const [exploded, setExploded] = useState<boolean>(false);
+
   return (
-    <main className="min-h-screen text-slate-100">
-      <section className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
-        <nav className="flex items-center justify-between rounded-full border border-white/10 bg-slate-900/60 px-5 py-3 text-sm text-slate-300 shadow-[0_10px_40px_rgba(2,6,23,0.45)] backdrop-blur-xl">
+    <main className="relative min-h-screen text-slate-100 overflow-hidden">
+      {/* 3D Background Particles Field */}
+      <ThreeBackgroundParticles />
+
+      <section className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
+        {/* Navigation */}
+        <nav className="flex items-center justify-between rounded-full border border-white/10 bg-slate-900/70 px-5 py-3 text-sm text-slate-300 shadow-[0_10px_40px_rgba(2,6,23,0.45)] backdrop-blur-xl">
           <a href="#home" className="font-semibold uppercase tracking-[0.3em] text-white">
             UDDISH LAKHWARA
           </a>
@@ -50,97 +78,156 @@ export default function Home() {
           </div>
         </nav>
 
-        <div id="home" className="grid items-center gap-6 rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-cyan-950/50 p-6 shadow-[0_30px_80px_rgba(2,6,23,0.55)] backdrop-blur-2xl md:grid-cols-[1.2fr_0.8fr] md:p-10 lg:p-14">
+        {/* Hero Section with 3D Canvas */}
+        <div
+          id="home"
+          className="grid items-center gap-8 rounded-[2.5rem] border border-white/15 bg-gradient-to-br from-slate-900/85 via-slate-900/60 to-cyan-950/40 p-6 shadow-[0_30px_90px_rgba(2,6,23,0.65)] backdrop-blur-2xl md:grid-cols-[1.1fr_0.9fr] md:p-10 lg:p-12"
+        >
           <div className="max-w-2xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">
-              Frontend Developer & UI Designer
-            </p>
-            <h1 className="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-              I build immersive digital experiences with depth, motion, and clarity.
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
+              <span className="size-2 rounded-full bg-cyan-400 animate-ping" />
+              Frontend Developer & 3D UI Designer
+            </div>
+
+            <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl text-white">
+              Building interactive <span className="bg-gradient-to-r from-cyan-300 via-teal-200 to-purple-400 bg-clip-text text-transparent">3D digital experiences</span> with depth & motion.
             </h1>
+
             <p className="mt-6 text-lg leading-8 text-slate-300">
-              I turn bold ideas into polished websites and applications with a focus on storytelling, usability, and standout visual impact.
+              I blend modern WebGL graphics, user-centered interface design, and high performance frontend code to turn complex ideas into engaging interactive products.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#projects"
-                className="rounded-full bg-cyan-400 px-6 py-3 font-medium text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:bg-cyan-300"
+                className="rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:-translate-y-0.5 hover:shadow-cyan-400/40"
               >
-                View Projects
+                Explore Projects
               </a>
               <a
                 href="#contact"
-                className="rounded-full border border-white/20 px-6 py-3 font-medium text-white transition hover:bg-white/10"
+                className="rounded-full border border-white/20 bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-md transition hover:bg-white/15 hover:border-white/30"
               >
-                Let&apos;s Talk
+                Get in Touch
               </a>
+            </div>
+
+            {/* Interactive 3D Control Bar Toolbar */}
+            <div className="mt-8">
+              <ThreeControlsHud
+                shape={shape}
+                setShape={setShape}
+                preset={preset}
+                setPreset={setPreset}
+                wireframe={wireframe}
+                setWireframe={setWireframe}
+                speed={speed}
+                setSpeed={setSpeed}
+                exploded={exploded}
+                setExploded={setExploded}
+              />
             </div>
           </div>
 
+          {/* 3D WebGL Canvas Display */}
+          <div className="relative flex flex-col items-center justify-center">
+            {/* Ambient Background Glow */}
+            <div aria-hidden="true" className="absolute -inset-4 rounded-full bg-cyan-500/20 blur-3xl opacity-60 animate-pulse-glow" />
+
+            <div className="relative h-[340px] sm:h-[400px] w-full rounded-3xl border border-white/15 bg-slate-950/60 p-2 shadow-[0_20px_50px_rgba(2,6,23,0.5)] backdrop-blur-xl">
+              <ThreeHeroCanvas
+                shape={shape}
+                preset={preset}
+                wireframe={wireframe}
+                speed={speed}
+                exploded={exploded}
+              />
+
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-slate-900/80 px-3 py-1 text-[11px] font-medium text-slate-400 shadow-md backdrop-blur-md">
+                ✦ Click & Drag to Orbit 3D Geometry
+              </div>
+            </div>
+          </div>
         </div>
 
-        <section id="about" className="grid gap-8 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.35)] lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+        {/* About Section */}
+        <section id="about" className="grid gap-8 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.35)] backdrop-blur-xl lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">About Me</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Designing with purpose and building with care.</h2>
+            <h2 className="mt-3 text-3xl font-bold text-white">Designing with purpose, rendering with WebGL speed.</h2>
           </div>
           <div className="space-y-4 text-lg leading-8 text-slate-300">
             <p>
-              I create web experiences that balance aesthetics with usability, helping brands and individuals make a memorable first impression.
+              I specialize in crafting rich web experiences that merge standard web design with real-time 3D spatial environments, creating memorable digital moments.
             </p>
             <p>
-              My approach blends strategy, frontend craftsmanship, and a deep attention to the small details that make a site feel exceptional.
+              By combining robust Next.js frontend architecture with Three.js rendering pipelines, I deliver performant, responsive, and visually expressive applications.
             </p>
           </div>
         </section>
 
+        {/* Projects Section with 3D Tilt Cards */}
         <section id="projects" className="space-y-6">
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Selected Work</p>
-              <h2 className="mt-2 text-3xl font-semibold text-white">Recent projects</h2>
+              <h2 className="mt-2 text-3xl font-bold text-white">Featured 3D Projects</h2>
             </div>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {projects.map((project) => (
-              <article key={project.title} className="rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-6 shadow-[0_18px_45px_rgba(2,6,23,0.25)] transition hover:-translate-y-1 hover:border-cyan-400/40">
-                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-300">{project.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.stack.map((item) => (
-                    <span key={item} className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-slate-400">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </article>
+              <ThreeTiltCard key={project.title} className="h-full">
+                <article className={`flex h-full flex-col justify-between rounded-[1.8rem] border border-white/15 bg-gradient-to-br ${project.color} p-6 shadow-[0_20px_50px_rgba(2,6,23,0.4)] backdrop-blur-xl transition duration-300 hover:border-cyan-400/50`}>
+                  <div>
+                    <div className="mb-4 inline-block size-3 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+                    <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">{project.description}</p>
+                  </div>
+                  <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                    {project.stack.map((item) => (
+                      <span key={item} className="rounded-full border border-cyan-400/20 bg-slate-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-cyan-300">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </ThreeTiltCard>
             ))}
           </div>
         </section>
 
-        <section className="grid gap-8 rounded-[2rem] border border-white/10 bg-gradient-to-br from-cyan-500/10 to-violet-500/10 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.25)] lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+        {/* Skills Section */}
+        <section className="grid gap-8 rounded-[2rem] border border-white/10 bg-gradient-to-br from-cyan-500/10 via-slate-900/80 to-violet-500/10 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.25)] backdrop-blur-xl lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Skills</p>
-            <h2 className="mt-2 text-3xl font-semibold text-white">What I bring to a project</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Core Expertise</p>
+            <h2 className="mt-2 text-3xl font-bold text-white">Skills & Technologies</h2>
           </div>
           <div className="flex flex-wrap gap-3">
             {skills.map((skill) => (
-              <span key={skill} className="rounded-full bg-slate-900/80 px-4 py-2 text-sm text-slate-200 shadow-sm shadow-black/20">
-                {skill}
-              </span>
+              <ThreeTiltCard key={skill} maxTilt={8} scale={1.05}>
+                <span className="block rounded-full border border-white/15 bg-slate-900/90 px-4 py-2.5 text-sm font-medium text-slate-100 shadow-md shadow-black/30 backdrop-blur-md">
+                  {skill}
+                </span>
+              </ThreeTiltCard>
             ))}
           </div>
         </section>
 
+        {/* FAQ Section */}
         <FaqSection />
 
-        <section id="contact" className="rounded-[2rem] border border-cyan-400/30 bg-cyan-500/10 p-8 text-center shadow-[0_20px_60px_rgba(34,211,238,0.12)] lg:p-12">
+        {/* Contact Section */}
+        <section id="contact" className="rounded-[2.5rem] border border-cyan-400/40 bg-gradient-to-r from-cyan-500/15 to-purple-500/15 p-8 text-center shadow-[0_25px_70px_rgba(34,211,238,0.15)] backdrop-blur-xl lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Let&apos;s collaborate</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white">Ready to build something remarkable?</h2>
+          <h2 className="mt-3 text-3xl font-bold text-white">Ready to create something interactive?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            I’m available for freelance projects, full-time roles, and thoughtful product partnerships.
+            I’m available for freelance 3D web projects, full-time positions, and creative technical partnerships.
           </p>
-          <a href="mailto:hello@yourname.com" className="mt-8 inline-block rounded-full bg-white px-6 py-3 font-semibold text-slate-950 transition hover:bg-slate-200">
+          <a
+            href="mailto:hello@yourname.com"
+            className="mt-8 inline-block rounded-full bg-cyan-400 px-8 py-3.5 font-bold text-slate-950 shadow-lg shadow-cyan-400/30 transition hover:scale-105 hover:bg-cyan-300"
+          >
             hello@yourname.com
           </a>
         </section>
