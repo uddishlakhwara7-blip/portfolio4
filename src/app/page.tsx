@@ -19,6 +19,11 @@ const ThreeBackgroundParticles = dynamic(
   { ssr: false }
 );
 
+const ThreeLogo = dynamic(
+  () => import("@/components/three-logo"),
+  { ssr: false, loading: () => <CanvasLoading /> }
+);
+
 const projects = [
   {
     title: "Studio Landing Page",
@@ -170,6 +175,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* 3D Animated Logo Section */}
+        <section className="relative overflow-hidden rounded-[2.5rem] border border-white/15 bg-gradient-to-br from-slate-900/80 via-slate-900/50 to-purple-950/30 shadow-[0_30px_90px_rgba(2,6,23,0.55)] backdrop-blur-2xl">
+          <div className="h-[280px] sm:h-[340px] w-full">
+            <ThreeLogo />
+          </div>
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Monogram</p>
+            <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+              Crafted with WebGL &amp; Three.js
+            </h2>
+          </div>
+        </section>
 
         {/* About Section */}
         <section id="about" className="grid gap-8 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 shadow-[0_20px_60px_rgba(2,6,23,0.35)] backdrop-blur-xl lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
