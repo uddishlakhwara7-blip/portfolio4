@@ -34,41 +34,43 @@ export default function ThreeCursor() {
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
-    // 1. 3D Wireframe Octahedron (Core)
-    const coreGeo = new THREE.OctahedronGeometry(0.7, 0);
-    const coreMat = new THREE.MeshBasicMaterial({
-      color: "#22d3ee",
-      wireframe: true,
-      transparent: true,
-      opacity: 0.9,
-    });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    scene.add(coreMesh);
-
-    // 2. Outer Ring Geometry
-    const ringGeo = new THREE.TorusGeometry(1.2, 0.03, 16, 64);
+    // Sleek Wireframe Reticle Ring (No heavy orb/solid mesh)
+    const ringGeo = new THREE.TorusGeometry(0.8, 0.025, 16, 48);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: "#a855f7",
+      color: "#22d3ee",
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.85,
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     scene.add(ringMesh);
 
-    // 3. Particle Trail System
-    const trailCount = 24;
+    // Micro Center Dot
+    const dotGeo = new THREE.BufferGeometry();
+    dotGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3)
+    );
+    const dotMat = new THREE.PointsMaterial({
+      size: 0.25,
+      color: "#ffffff",
+      transparent: true,
+      opacity: 0.95,
+    });
+    const dotPoint = new THREE.Points(dotGeo, dotMat);
+    scene.add(dotPoint);
+
+    // Lightweight Particle Trail System (8 lightweight points)
+    const trailCount = 8;
     const trailGeo = new THREE.BufferGeometry();
     const trailPositions = new Float32Array(trailCount * 3);
-    const trailOpacities = new Float32Array(trailCount);
 
     for (let i = 0; i < trailCount; i++) {
       trailPositions[i * 3] = 0;
       trailPositions[i * 3 + 1] = 0;
       trailPositions[i * 3 + 2] = 0;
-      trailOpacities[i] = (1 - i / trailCount) * 0.7;
     }
 
     trailGeo.setAttribute(
@@ -77,72 +79,46 @@ export default function ThreeCursor() {
     );
 
     const trailMat = new THREE.PointsMaterial({
-      size: 0.35,
+      size: 0.2,
       color: "#38bdf8",
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.5,
       blending: THREE.AdditiveBlending,
     });
     const trailPoints = new THREE.Points(trailGeo, trailMat);
     scene.add(trailPoints);
 
-    // 4. Click Shockwave Mesh
-    const shockGeo = new THREE.RingGeometry(0.1, 0.2, 32);
-    const shockMat = new THREE.MeshBasicMaterial({
-      color: "#38bdf8",
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0,
-    });
-    const shockMesh = new THREE.Mesh(shockGeo, shockMat);
-    scene.add(shockMesh);
-
-    // Position State & Interpolation (Lerp)
-    let mouseX = 0;
-    let mouseY = 0;
+    // Position State & High-Speed Interpolation
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
-
     let isHovered = false;
-    let shockScale = 1;
-    let shockOpacity = 0;
+    let lastHoverCheck = 0;
 
-    // Trail history points
     const history: { x: number; y: number }[] = Array(trailCount).fill({
       x: 0,
       y: 0,
     });
 
-    // Mouse Move & Viewport Mapping
+    // High-performance Mouse Listener (Passive)
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      // Convert Screen Pixel Coordinates to 3D World Space Coordinates
       targetX = (e.clientX / window.innerWidth - 0.5) * (camera.aspect * 23);
       targetY = -(e.clientY / window.innerHeight - 0.5) * 23;
 
-      // Check if mouse is hovering over interactive elements
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        const interactive = target.closest(
-          'a, button, input, select, textarea, [role="button"], .hover-target, canvas'
-        );
-        isHovered = !!interactive;
+      // Throttle DOM hover check to every 80ms to keep mouse event loop ultra-fast
+      const now = performance.now();
+      if (now - lastHoverCheck > 80) {
+        lastHoverCheck = now;
+        const target = e.target as HTMLElement | null;
+        if (target) {
+          isHovered = !!target.closest(
+            'a, button, input, select, textarea, [role="button"], canvas'
+          );
+        }
       }
     };
 
-    // Click handler for 3D Shockwave expansion
-    const handleClick = () => {
-      shockMesh.position.x = currentX;
-      shockMesh.position.y = currentY;
-      shockScale = 0.5;
-      shockOpacity = 1;
-    };
-
-    // Window leave / enter handlers
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
@@ -152,8 +128,7 @@ export default function ThreeCursor() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("click", handleClick);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("mouseenter", handleMouseEnter);
     window.addEventListener("resize", handleResize);
@@ -164,40 +139,28 @@ export default function ThreeCursor() {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth lerp movement towards target mouse position
-      const lerpFactor = isHovered ? 0.25 : 0.18;
-      currentX += (targetX - currentX) * lerpFactor;
-      currentY += (targetY - currentY) * lerpFactor;
+      // High-speed lerp (0.65) — Instant responsiveness with zero lag
+      currentX += (targetX - currentX) * 0.65;
+      currentY += (targetY - currentY) * 0.65;
 
-      // Update Core & Ring Position
-      coreMesh.position.x = currentX;
-      coreMesh.position.y = currentY;
-      ringMesh.position.x = currentX;
-      ringMesh.position.y = currentY;
+      ringMesh.position.set(currentX, currentY, 0);
+      dotPoint.position.set(currentX, currentY, 0);
 
-      // Dynamic rotation
-      const rotSpeed = isHovered ? 3.5 : 1.5;
-      coreMesh.rotation.x = elapsedTime * rotSpeed;
-      coreMesh.rotation.y = elapsedTime * (rotSpeed * 1.2);
-      ringMesh.rotation.x = elapsedTime * (rotSpeed * 0.8);
-      ringMesh.rotation.z = elapsedTime * rotSpeed;
+      // Fast rotation
+      ringMesh.rotation.x = elapsedTime * 2;
+      ringMesh.rotation.y = elapsedTime * 2.5;
 
-      // Dynamic Hover Scale & Color Shift
-      const targetScale = isHovered ? 1.6 : 1.0;
-      const currentScale = coreMesh.scale.x;
-      const newScale = currentScale + (targetScale - currentScale) * 0.15;
-      coreMesh.scale.setScalar(newScale);
-      ringMesh.scale.setScalar(newScale * 1.25);
+      // Scale & Color on hover
+      const targetScale = isHovered ? 1.5 : 1.0;
+      ringMesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.2);
 
       if (isHovered) {
-        coreMat.color.set("#ec4899"); // Vibrant Pink/Magenta on hover
-        ringMat.color.set("#22d3ee"); // Cyan ring on hover
+        ringMat.color.set("#a855f7");
       } else {
-        coreMat.color.set("#22d3ee"); // Cyan core default
-        ringMat.color.set("#a855f7"); // Purple ring default
+        ringMat.color.set("#22d3ee");
       }
 
-      // Update Particle Trail History
+      // Trail update
       history.unshift({ x: currentX, y: currentY });
       history.pop();
 
@@ -208,14 +171,6 @@ export default function ThreeCursor() {
       }
       posAttr.needsUpdate = true;
 
-      // Update Shockwave Ripple animation
-      if (shockOpacity > 0.01) {
-        shockScale += 0.15;
-        shockOpacity *= 0.92;
-        shockMesh.scale.set(shockScale, shockScale, 1);
-        shockMat.opacity = shockOpacity;
-      }
-
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -225,7 +180,6 @@ export default function ThreeCursor() {
     return () => {
       document.body.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("click", handleClick);
       window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("mouseenter", handleMouseEnter);
       window.removeEventListener("resize", handleResize);
@@ -235,14 +189,12 @@ export default function ThreeCursor() {
         container.removeChild(renderer.domElement);
       }
 
-      coreGeo.dispose();
-      coreMat.dispose();
       ringGeo.dispose();
       ringMat.dispose();
+      dotGeo.dispose();
+      dotMat.dispose();
       trailGeo.dispose();
       trailMat.dispose();
-      shockGeo.dispose();
-      shockMat.dispose();
       renderer.dispose();
     };
   }, []);
@@ -251,7 +203,7 @@ export default function ThreeCursor() {
     <div
       ref={mountRef}
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 z-50 transition-opacity duration-300 ${
+      className={`pointer-events-none fixed inset-0 z-50 transition-opacity duration-200 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     />

@@ -30,10 +30,6 @@ const ThreeLogo = dynamic(
   { ssr: false, loading: () => <CanvasLoading /> }
 );
 
-const CursorEffects = dynamic(
-  () => import("@/components/cursor-effects"),
-  { ssr: false }
-);
 
 const projects = [
   {
@@ -89,7 +85,6 @@ export default function Home() {
       {/* Dynamic Interactive Motion Background & Controls */}
       <MotionBackground />
       <MotionBackgroundControls />
-      <CursorEffects />
 
       <section className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
         {/* Navigation */}
