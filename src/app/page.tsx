@@ -3,6 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import FaqSection from "@/components/faq-section";
+import MagneticWrapper from "@/components/magnetic-wrapper";
 import ThreeControlsHud from "@/components/three-controls-hud";
 import ThreeTiltCard from "@/components/three-tilt-card";
 import type { ColorPreset, GeometryShape } from "@/components/three-hero-canvas";
@@ -27,6 +28,11 @@ const MotionBackgroundControls = dynamic(
 const ThreeLogo = dynamic(
   () => import("@/components/three-logo"),
   { ssr: false, loading: () => <CanvasLoading /> }
+);
+
+const CursorEffects = dynamic(
+  () => import("@/components/cursor-effects"),
+  { ssr: false }
 );
 
 const projects = [
@@ -83,6 +89,7 @@ export default function Home() {
       {/* Dynamic Interactive Motion Background & Controls */}
       <MotionBackground />
       <MotionBackgroundControls />
+      <CursorEffects />
 
       <section className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
         {/* Navigation */}
@@ -130,18 +137,22 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#projects"
-                className="rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:-translate-y-0.5 hover:shadow-cyan-400/40"
-              >
-                Explore Projects
-              </a>
-              <a
-                href="#contact"
-                className="rounded-full border border-white/20 bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-md transition hover:bg-white/15 hover:border-white/30"
-              >
-                Get in Touch
-              </a>
+              <MagneticWrapper strength={20} radius={120}>
+                <a
+                  href="#projects"
+                  className="block rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:-translate-y-0.5 hover:shadow-cyan-400/40"
+                >
+                  Explore Projects
+                </a>
+              </MagneticWrapper>
+              <MagneticWrapper strength={20} radius={120}>
+                <a
+                  href="#contact"
+                  className="block rounded-full border border-white/20 bg-white/5 px-6 py-3 font-medium text-white backdrop-blur-md transition hover:bg-white/15 hover:border-white/30"
+                >
+                  Get in Touch
+                </a>
+              </MagneticWrapper>
             </div>
 
             {/* Interactive 3D Control Bar Toolbar */}
@@ -221,22 +232,24 @@ export default function Home() {
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {projects.map((project) => (
-              <ThreeTiltCard key={project.title} className="h-full">
-                <article className={`flex h-full flex-col justify-between rounded-[1.8rem] border border-white/15 bg-gradient-to-br ${project.color} p-6 shadow-[0_20px_50px_rgba(2,6,23,0.4)] backdrop-blur-xl transition duration-300 hover:border-cyan-400/50`}>
-                  <div>
-                    <div className="mb-4 inline-block size-3 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
-                    <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{project.description}</p>
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-white/10">
-                    {project.stack.map((item) => (
-                      <span key={item} className="rounded-full border border-cyan-400/20 bg-slate-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-cyan-300">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              </ThreeTiltCard>
+              <MagneticWrapper key={project.title} strength={25} radius={200}>
+                <ThreeTiltCard className="h-full">
+                  <article className={`flex h-full flex-col justify-between rounded-[1.8rem] border border-white/15 bg-gradient-to-br ${project.color} p-6 shadow-[0_20px_50px_rgba(2,6,23,0.4)] backdrop-blur-xl transition duration-300 hover:border-cyan-400/50`}>
+                    <div>
+                      <div className="mb-4 inline-block size-3 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+                      <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-300">{project.description}</p>
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                      {project.stack.map((item) => (
+                        <span key={item} className="rounded-full border border-cyan-400/20 bg-slate-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-cyan-300">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                </ThreeTiltCard>
+              </MagneticWrapper>
             ))}
           </div>
         </section>
@@ -249,11 +262,13 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap gap-3">
             {skills.map((skill) => (
-              <ThreeTiltCard key={skill} maxTilt={8} scale={1.05}>
-                <span className="block rounded-full border border-white/15 bg-slate-900/90 px-4 py-2.5 text-sm font-medium text-slate-100 shadow-md shadow-black/30 backdrop-blur-md">
-                  {skill}
-                </span>
-              </ThreeTiltCard>
+              <MagneticWrapper key={skill} strength={15} radius={100}>
+                <ThreeTiltCard maxTilt={8} scale={1.05}>
+                  <span className="block rounded-full border border-white/15 bg-slate-900/90 px-4 py-2.5 text-sm font-medium text-slate-100 shadow-md shadow-black/30 backdrop-blur-md">
+                    {skill}
+                  </span>
+                </ThreeTiltCard>
+              </MagneticWrapper>
             ))}
           </div>
         </section>
@@ -268,12 +283,14 @@ export default function Home() {
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
             I’m available for freelance 3D web projects, full-time positions, and creative technical partnerships.
           </p>
-          <a
-            href="mailto:hello@uddish.online"
-            className="mt-8 inline-block rounded-full bg-cyan-400 px-8 py-3.5 font-bold text-slate-950 shadow-lg shadow-cyan-400/30 transition hover:scale-105 hover:bg-cyan-300"
-          >
-            hello@uddish.online
-          </a>
+          <MagneticWrapper strength={25} radius={140}>
+            <a
+              href="mailto:hello@uddish.online"
+              className="mt-8 inline-block rounded-full bg-cyan-400 px-8 py-3.5 font-bold text-slate-950 shadow-lg shadow-cyan-400/30 transition hover:scale-105 hover:bg-cyan-300"
+            >
+              hello@uddish.online
+            </a>
+          </MagneticWrapper>
         </section>
       </section>
     </main>
