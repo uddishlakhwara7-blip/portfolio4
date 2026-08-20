@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import ThemeToggle from "@/components/theme-toggle";
 import JsonLd from "@/components/json-ld";
-import ClientThreeCursor from "@/components/client-three-cursor";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -88,7 +87,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <JsonLd />
         <ThemeToggle />
-        <ClientThreeCursor />
         {children}
         <Analytics />
       </body>
