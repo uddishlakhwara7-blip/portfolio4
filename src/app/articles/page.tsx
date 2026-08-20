@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
+import ClientMotionBackground from "@/components/client-motion-background";
 
 export const metadata: Metadata = {
   title: "Articles",
@@ -13,8 +14,9 @@ export const metadata: Metadata = {
 
 export default function ArticlesIndexPage() {
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100 sm:px-8 lg:px-12">
-      <div className="mx-auto flex max-w-4xl flex-col gap-8">
+    <main className="relative min-h-screen overflow-hidden px-6 py-16 text-slate-100 sm:px-8 lg:px-12">
+      <ClientMotionBackground mode="aurora" />
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col gap-8">
         <header className="space-y-4">
           <Link
             href="/"

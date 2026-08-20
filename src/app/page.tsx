@@ -14,8 +14,13 @@ const ThreeHeroCanvas = dynamic(
   { ssr: false, loading: () => <CanvasLoading /> }
 );
 
-const ThreeBackgroundParticles = dynamic(
-  () => import("@/components/three-background-particles"),
+const MotionBackground = dynamic(
+  () => import("@/components/motion-background"),
+  { ssr: false }
+);
+
+const MotionBackgroundControls = dynamic(
+  () => import("@/components/motion-background-controls"),
   { ssr: false }
 );
 
@@ -75,8 +80,9 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen text-slate-100 overflow-hidden">
-      {/* 3D Background Particles Field */}
-      <ThreeBackgroundParticles />
+      {/* Dynamic Interactive Motion Background & Controls */}
+      <MotionBackground />
+      <MotionBackgroundControls />
 
       <section className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
         {/* Navigation */}
